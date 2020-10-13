@@ -10,12 +10,82 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!--  <link rel="stylesheet" href="reviews.css"> 
        <script src="reviews.js"></script>  --> 
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
         <script src="https://use.fontawesome.com/031e3862f6.js"></script>
 
         <style>
+            body{
+                background-color: #F1F5F8;
+                text-align: center;
+            }
 
+            h1{
+                padding-top: 40px;
+                letter-spacing: 4px;
+                color:#102A42;
+            }
+            #search{
 
+                padding: 5px;
+                font-size: 15px;
+                border-radius: 5px;
+                width: 40vw;
+                border:none;
+
+            }
+            #grid_container{
+                margin-top: 100px  ;
+                display: grid;
+                grid-template-columns: 28% 28% 28%;
+                grid-column-gap: 50px;
+                grid-row-gap: 50px;
+                justify-content: center;
+
+            }
+            .image_container{
+
+                background-color: white;
+                border-radius: 10px;
+                position: relative;
+                box-shadow: 2px 2px 4px grey;
+                transition: transform 1s;
+            }
+
+            .image_container:hover{
+                transform: translate(-1%,-1%)
+            }
+
+            .thumbnails{
+                width: 95%;
+                height: auto;
+                object-fit: cover;
+                padding: 10px 0px;
+                cursor: pointer;
+                transition: filter 1s;
+                
+
+            }
+            .thumbnails:hover{
+                filter:blur(4px);
+                -webkit-filter: blur(4px);
+            }
+            .name{
+                background-color: #222222;
+                color:white;
+                position: absolute;
+                bottom: -10;
+                padding: 10px;
+                font-size: 17px;
+                left:80%;
+                font-family: 'Roboto', sans-serif;
+                border-radius: 10px;
+                cursor: pointer;
+            
+            }
+            .name:hover .thumbnails{
+                filter:blur(4px);
+                -webkit-filter: blur(4px);
+            }
            
 
         </style>
@@ -26,10 +96,93 @@
 
 
     <body>
+
+        <h1>Cocktails API</h1>
+        <input type="text" id="search" placeholder="Search Your Favorite Cocktail">
+        <div id="grid_container">
+
+          <!--  <div class="image_container" id="margarita">
+                <img class="thumbnails" src="" id="img">
+                <div class="name" id="drink"></div>
+            </div>
+
+            <div class="image_container">2</div>
+
+            <div class="image_container">3</div> -->
+
+        </div>
        
 
 
         <script>
+            window.onload = function(){
+                const grid =document.getElementById("grid_container");
+                let image_container_div ;
+                let image_elm ;
+                let name_div; 
+                let id_count=0;
+
+              // const margarita = document.images.namedItem("img")
+              // const image = document.getElementById("img")
+               //const drink = document.getElementById("drink")
+
+               const cocktail_array=["A1","abc","ace","adam","at&t","acid","karsk","melya","affair","boxcar","orgasm","apello","avalon","casino","radler","mimosa","paloma","abilene","almeria","mai tai","martini","sazerac","sidecar","veteran"]
+
+               cocktail_array.forEach(function(elm,i){
+                id_count++;
+                console.log(elm)
+                image_container_div = document.createElement("DIV");
+               image_container_div.setAttribute("class","image_container");
+
+                 image_elm = document.createElement("IMG");
+               image_elm.setAttribute("class","thumbnails");
+              
+               image_elm.setAttribute("id",id_count)
+
+               name_div=document.createElement("DIV");
+               name_div.setAttribute("class","name");
+
+
+
+                
+                
+                fetch_func(elm,id_count);
+                image_container_div.appendChild(image_elm);
+                image_container_div.appendChild(name_div);
+
+                grid.appendChild(image_container_div)
+
+
+
+
+
+
+
+               })
+
+               function fetch_func(elm,id_count){
+                fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+elm)
+                .then(response => response.json())
+                .then(function(data){
+
+                    document.getElementById(id_count).setAttribute("src", data["drinks"][0]["strDrinkThumb"]);
+                   
+                    document.getElementById(id_count).nextElementSibling.textContent = (data["drinks"][0]["strDrink"]).toUpperCase();
+
+                })
+                .catch(err => console.log(err))
+
+
+
+               }
+
+
+
+
+            
+
+
+            }
 
          
 
