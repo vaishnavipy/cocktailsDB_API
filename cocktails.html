@@ -203,6 +203,7 @@
                search_elm.oninput = function(){
 
                 grid.textContent ="";
+                grid.style.display="grid";
                 let search_value = search_elm.value;
                 console.log(search_value)
                 console.log(cocktail_names_list.length)
@@ -274,7 +275,7 @@
                         }
 
                     }else{
-
+                        grid.style.display="block";
                         grid.textContent ="Sorry No Drinks Matched Your Search!! Try Again..";
                         
 
