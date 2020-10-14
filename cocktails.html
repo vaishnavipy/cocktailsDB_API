@@ -175,6 +175,18 @@
 
 
                }
+               let all_cocktails = document.querySelectorAll(".image_container");
+               all_cocktails.forEach(elm => elm.addEventListener("click",myFunc));
+
+               function myFunc(){
+
+                   let cocktail_name = this.children[1].textContent;
+                   localStorage.setItem("cocktail_name",cocktail_name);
+                   location.assign("cocktail_details.html");
+
+
+
+               }
 
 
 

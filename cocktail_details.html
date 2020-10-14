@@ -14,8 +14,62 @@
         <script src="https://use.fontawesome.com/031e3862f6.js"></script>
 
         <style>
+            body{
+                background-color: #F1F5F8;
+            }
+            #grid_container{
+                display: grid;
+                grid-template-columns: 38% 38%;
+                justify-content: center;
+                padding-top: 40px;
+                grid-column-gap: 50px;
+            }
+           .thumbnail{
+
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+           }
            
-           
+           .cocktail_name_class{
+            letter-spacing: 3px;
+            color:#102A42;
+
+
+           }
+           .instructions_class{
+               color:#617D98;
+               font-size: 20px;
+
+           }
+           .ingredients{
+               color:black;
+               letter-spacing: 1px;
+               font-size: 20px;
+               
+           }
+           .checkmark{
+               padding: 10px;
+               font-size: 1rem;
+           }
+           #all{
+               color:white;
+               letter-spacing: 2px;
+               background-color: #49A6E9;
+               padding: 10px;
+               font-size: 20px;
+               border: none;
+               cursor: pointer;
+               border-radius: 10px;
+           }
+           #cocktail_image{
+
+            width:95%;
+            height: auto;
+            object-fit: cover;
+            padding: 10px 0;
+           }
+          
 
         </style>
         
@@ -26,18 +80,84 @@
 
     <body>
 
+        <div id="grid_container">
+            <div class="thumbnail" id="left" ><img id="cocktail_image" src=""></div>
+
+            <div  id="right">
+                <h1 class="cocktail_name_class" id="cocktailName">AVALON</h1>
+                <p class="instructions_class" id="instructions">Fill a tall glass with ice. Layer the Finlandia Vodka, lemon and apple juices, Pisang Ambon, and top up with lemonade. Stir slightly and garnish with a spiralled cucumber skin and a red cherry. The cucumber provides zest and looks attractive. This drink, created by Timo Haimi, took first prize in the 1991 Finlandia Vodka Long Drink Competition.</p>
+                
+               <!-- <p class="ingredients"><span class="checkmark"><i class="fa fa-check-square"></i></span>Vodka</p>
+
+                <p class="ingredients"><span class="checkmark"><i class="fa fa-check-square"></i></span>Pisang Ambon</p>
+
+                <p class="ingredients"><span class="checkmark"><i class="fa fa-check-square"></i></span>Apple Juice</p>
+
+                <p class="ingredients"><span class="checkmark"><i class="fa fa-check-square"></i></span>Lemon Juice</p> -->
+
+                <button id="all">All Cocktails</button>
+            </div>
+        </div>
        
 
-        </div>
+        
        
 
 
         <script>
+            window.onload = function(){
             
-         
+            
+            let selected_cocktail = localStorage.getItem("cocktail_name");
+
+            document.title = selected_cocktail;
+
+            const right_div = document.getElementById("right");
+
+           document.getElementById("cocktailName").innerHTML = selected_cocktail;
+
+           fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+selected_cocktail)
+           .then(response => response.json())
+           .then(function(data){
+
+                document.getElementById("instructions").innerHTML = data["drinks"][0]["strInstructions"];
+                document.images.namedItem("cocktail_image").src = data["drinks"][0]["strDrinkThumb"];
+
+                for(let i=1; i <= 15 ; i++){
+
+                   if(data["drinks"][0]["strIngredient"+i] != null){
+
+                    let para = document.createElement("P");
+                    para.setAttribute("class","ingredients");
+
+                    let span = document.createElement("SPAN");
+                    span.setAttribute("class","checkmark");
+
+                    span.innerHTML = '<i class="fa fa-check-square">';
+
+                    let txtnode = document.createTextNode(data["drinks"][0]["strIngredient"+i]);
+
+                    para.appendChild(span);
+                    para.appendChild(txtnode);
+
+                    right_div.insertBefore(para,right_div.lastElementChild);
+
+                   }
 
 
+                }
 
+
+           })
+           .catch(err => console.log(err))
+
+           document.getElementById("all").onclick = function(){
+
+            location.assign("cocktails.html");
+           }
+
+
+        }
 
         </script>
         
