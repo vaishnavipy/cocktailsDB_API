@@ -1,0 +1,99 @@
+body{
+    background-color: #F1F5F8;
+    text-align: center;
+}
+
+h1{
+    padding-top: 40px;
+    letter-spacing: 4px;
+    color:#102A42;
+}
+#search{
+
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 40vw;
+    border:none;
+
+}
+#grid_container{
+    margin-top: 100px  ;
+    display: grid;
+    grid-template-columns: 28% 28% 28%;
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+    justify-content: center;
+    color: #102A42;
+    font-size: 20px;
+    text-align: center;
+
+}
+.image_container{
+
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 2px 2px 4px grey;
+    transition: transform 1s;
+}
+
+.image_container:hover{
+    transform: translate(-1%,-1%)
+}
+
+.thumbnails{
+    width: 95%;
+    height: auto;
+    object-fit: cover;
+    padding: 10px 0px;
+    cursor: pointer;
+    transition: filter 1s;
+    
+
+}
+.thumbnails:hover{
+    filter:blur(4px);
+    -webkit-filter: blur(4px);
+}
+.name{
+    background-color: #222222;
+    color:white;
+    position: absolute;
+    bottom: -10;
+    padding: 10px;
+    font-size: 17px;
+    left:80%;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+.name:hover .thumbnails{
+    filter:blur(4px);
+    -webkit-filter: blur(4px);
+}
+#loading{
+
+    display: none;
+
+}
+@media only screen and (max-width: 700px){
+    #grid_container{
+
+        grid-template-columns: 80%;
+
+
+    }
+
+}
+
+@media only screen and (max-width: 1000px){
+    #grid_container{
+
+        grid-template-columns: 40% 40%;
+        
+
+    }
+
+}

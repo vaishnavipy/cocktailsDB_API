@@ -1,0 +1,77 @@
+body{
+    background-color: #F1F5F8;
+}
+#grid_container{
+    display: grid;
+    grid-template-columns: 38% 38%;
+    justify-content: center;
+    padding-top: 40px;
+    grid-column-gap: 50px;
+    text-align: center;
+   
+}
+.thumbnail{
+
+background-color: white;
+border-radius: 10px;
+text-align: center;
+}
+
+.cocktail_name_class{
+letter-spacing: 3px;
+color:#102A42;
+
+
+}
+.instructions_class{
+   color:#617D98;
+   font-size: 20px;
+
+}
+.ingredients{
+   color:black;
+   letter-spacing: 1px;
+   font-size: 20px;
+   
+}
+.checkmark{
+   padding: 10px;
+   font-size: 1rem;
+}
+#all{
+   color:white;
+   letter-spacing: 2px;
+   background-color: #49A6E9;
+   padding: 10px;
+   font-size: 20px;
+   border: none;
+   cursor: pointer;
+   border-radius: 10px;
+}
+#cocktail_image{
+
+width:95%;
+height: auto;
+object-fit: cover;
+padding: 10px 0;
+}
+#loading{
+
+   display: none;
+}
+#left{
+display: none; 
+}
+#right{
+display: none; 
+}
+@media only screen and (max-width: 1000px){
+    #grid_container{
+
+        grid-template-columns: 80%;
+        
+
+    }
+
+}
+
