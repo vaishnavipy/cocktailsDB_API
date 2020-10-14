@@ -40,6 +40,9 @@
                 grid-column-gap: 50px;
                 grid-row-gap: 50px;
                 justify-content: center;
+                color: #102A42;
+                font-size: 20px;
+                text-align: center;
 
             }
             .image_container{
@@ -110,6 +113,7 @@
 
             <div class="image_container">3</div> -->
 
+
         </div>
        
 
@@ -121,6 +125,7 @@
                 let image_elm ;
                 let name_div; 
                 let id_count=0;
+                let all_cocktails;
 
               // const margarita = document.images.namedItem("img")
               // const image = document.getElementById("img")
@@ -131,6 +136,24 @@
                cocktail_array.forEach(function(elm,i){
                 id_count++;
                 
+               
+
+                createCocktailElements();
+
+                
+                
+                fetch_func(elm,id_count);
+           
+                image_container_div.appendChild(image_elm);
+                image_container_div.appendChild(name_div);
+
+                grid.appendChild(image_container_div)
+
+
+               })
+               function createCocktailElements(){
+
+
                 image_container_div = document.createElement("DIV");
                image_container_div.setAttribute("class","image_container");
 
@@ -143,22 +166,7 @@
                name_div.setAttribute("class","name");
 
 
-
-                
-                
-                fetch_func(elm,id_count);
-                image_container_div.appendChild(image_elm);
-                image_container_div.appendChild(name_div);
-
-                grid.appendChild(image_container_div)
-
-
-
-
-
-
-
-               })
+               }
 
                function fetch_func(elm,id_count){
                 fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+elm)
@@ -175,7 +183,7 @@
 
 
                }
-               let all_cocktails = document.querySelectorAll(".image_container");
+              all_cocktails = document.querySelectorAll(".image_container");
                all_cocktails.forEach(elm => elm.addEventListener("click",myFunc));
 
                function myFunc(){
@@ -190,27 +198,92 @@
 
                const search_elm = document.getElementById("search");
 
-               const cocktail_names_list = document.querySelectorAll(".name");
+               let cocktail_names_list = document.querySelectorAll(".name");
 
                search_elm.oninput = function(){
 
-
+                grid.textContent ="";
                 let search_value = search_elm.value;
-
+                console.log(search_value)
+                console.log(cocktail_names_list.length)
                 cocktail_names_list.forEach(function(elm,i){
 
-                    if(elm.textContent.includes(search_value)){
+
+                    elm.parentElement.style.display ="none";
+
+                })
+                if(search_value == ""){
+                   /* cocktail_names_list.forEach(function(elm,i){
+
+
+                        elm.parentElement.style.display ="block";
+
+                        }) */
+                        location.reload();
+
+                }
+
+
+               /* cocktail_names_list.forEach(function(elm,i){
+                    console.log(search_value.toUpperCase())
+                    console.log(elm.textContent.includes(search_value.toUpperCase()))
+
+                    if(elm.textContent.includes(search_value.toUpperCase())){
+                        console.log(elm)
 
                         elm.parentElement.style.display ="block";
 
                     }else{
                         elm.parentElement.style.display ="none";
 
+                    } 
+
+
+
+                }) */
+
+                fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+search_value)
+               
+                .then(response => response.json())
+                .then(function(data){
+
+                    if(data["drinks"]){
+                        
+                        for(var j=0; j< data["drinks"].length ; j++){
+                            id_count++;
+
+                            createCocktailElements();
+                          
+                          
+                            image_container_div.appendChild(image_elm);
+                image_container_div.appendChild(name_div);
+
+                grid.appendChild(image_container_div);
+
+                    document.getElementById(id_count).setAttribute("src", data["drinks"][j]["strDrinkThumb"]);
+                   
+                   document.getElementById(id_count).nextElementSibling.textContent = (data["drinks"][j]["strDrink"]).toUpperCase();
+
+                   
+
+                   all_cocktails = document.querySelectorAll(".image_container");
+               all_cocktails.forEach(elm => elm.addEventListener("click",myFunc));
+
+
+
+                        }
+
+                    }else{
+
+                        grid.textContent ="Sorry No Drinks Matched Your Search!! Try Again..";
+                        
+
+
                     }
-
-
+                    cocktail_names_list = document.querySelectorAll(".name");
 
                 })
+                .catch(err => console.log(err))
 
 
 
