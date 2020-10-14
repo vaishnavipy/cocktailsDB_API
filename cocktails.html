@@ -130,7 +130,7 @@
 
                cocktail_array.forEach(function(elm,i){
                 id_count++;
-                console.log(elm)
+                
                 image_container_div = document.createElement("DIV");
                image_container_div.setAttribute("class","image_container");
 
@@ -188,7 +188,34 @@
 
                }
 
+               const search_elm = document.getElementById("search");
 
+               const cocktail_names_list = document.querySelectorAll(".name");
+
+               search_elm.oninput = function(){
+
+
+                let search_value = search_elm.value;
+
+                cocktail_names_list.forEach(function(elm,i){
+
+                    if(elm.textContent.includes(search_value)){
+
+                        elm.parentElement.style.display ="block";
+
+                    }else{
+                        elm.parentElement.style.display ="none";
+
+                    }
+
+
+
+                })
+
+
+
+
+               }
 
 
             
