@@ -89,6 +89,12 @@
                 filter:blur(4px);
                 -webkit-filter: blur(4px);
             }
+            #loading{
+
+                display: none;
+
+            }
+           
            
 
         </style>
@@ -99,11 +105,15 @@
 
 
     <body>
+        
 
         <h1>Cocktails API</h1>
         <input type="text" id="search" placeholder="Search Your Favorite Cocktail">
         <div id="grid_container">
-
+            <article class="loading_class" id="loading">
+                <img  src="https://ajax-basic-projects-cocktails-db.netlify.app/loading.gif" alt="" />
+              </article>
+          
           <!--  <div class="image_container" id="margarita">
                 <img class="thumbnails" src="" id="img">
                 <div class="name" id="drink"></div>
@@ -119,8 +129,36 @@
 
 
         <script>
-            window.onload = function(){
+
+            window.addEventListener("load",loadingFunc)
+
+            
+
+            function loadingFunc(){
+
+                document.getElementById("grid_container").style.display="block";
+
+                document.getElementById("loading").style.display="block";
+
+                setTimeout(function(){
+                    document.getElementById("loading").style.display="none";
+                    displayData();
+
+                },1000);
+
+
+            }
+
+
+
+
+             function displayData(){
                 const grid =document.getElementById("grid_container");
+
+                document.getElementById("loading").style.display="none";
+
+                grid.style.display = "grid";
+
                 let image_container_div ;
                 let image_elm ;
                 let name_div; 

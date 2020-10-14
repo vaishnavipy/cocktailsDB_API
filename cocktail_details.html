@@ -23,6 +23,8 @@
                 justify-content: center;
                 padding-top: 40px;
                 grid-column-gap: 50px;
+                text-align: center;
+               
             }
            .thumbnail{
 
@@ -69,6 +71,16 @@
             object-fit: cover;
             padding: 10px 0;
            }
+           #loading{
+
+               display: none;
+           }
+           #left{
+            display: none; 
+           }
+           #right{
+            display: none; 
+           }
           
 
         </style>
@@ -81,6 +93,10 @@
     <body>
 
         <div id="grid_container">
+            <article class="loading_class" id="loading">
+                <img  src="https://ajax-basic-projects-cocktails-db.netlify.app/loading.gif" alt="" />
+              </article>
+
             <div class="thumbnail" id="left" ><img id="cocktail_image" src=""></div>
 
             <div  id="right">
@@ -105,14 +121,50 @@
 
 
         <script>
-            window.onload = function(){
+
+            window.addEventListener("load",loadingFunc);
+
+            function loadingFunc(){
+
+                document.getElementById("grid_container").style.display ="block";
+
+                document.getElementById("loading").style.display ="block"
+
+                setTimeout(function(){
+
+                    document.getElementById("loading").style.display ="none";
+                    displayData();
+
+                },1000);
+
+
+            }
+
+
+
+            function displayData(){
             
-            
+              const grid=  document.getElementById("grid_container");
+             
+              grid.style.display ="grid";
+
+              grid.style.textAlign="left";
+
+                const right_div = document.getElementById("right");
+
+                const left_div = document.getElementById("left");
+
+                right_div.style.display="block";
+
+                left_div.style.display="block";
+
+
+
             let selected_cocktail = localStorage.getItem("cocktail_name");
 
             document.title = selected_cocktail;
 
-            const right_div = document.getElementById("right");
+         
 
            document.getElementById("cocktailName").innerHTML = selected_cocktail;
 
